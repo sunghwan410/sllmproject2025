@@ -1,72 +1,61 @@
-# sllmproject2025
-
+📦 sllmproject2025
 CPU 기반 Gemma-3-4B-IT 모델 실행 프로젝트
-개요
-이 프로젝트는 GPU(그래픽 카드)를 전혀 사용하지 않고 CPU만을 활용하여 성능이 뛰어난 시스템을 구현하는 것을 목표로 합니다. 속도는 느릴 수 있으나, 자원 효율성을 극대화하여 높은 성능을 달성합니다. 특히, NVIDIA GPU 4070의 12GB를 초과하는 32GB 메모리를 갖춘 CPU를 최대한 활용합니다.
-모델 정보
+1. 프로젝트 개요
+본 프로젝트는 GPU 없이 CPU만 활용하여,
+고성능 자연어 처리 모델인 Gemma-3-4B-IT를 구동하는 것을 목표로 합니다.
 
-모델: google/gemma-3-4b-it
-메모리 요구사항: FP16 또는 bfloat16 설정에서 약 20GB RAM 필요
-특징: 4B 파라미터, 멀티모달(텍스트+이미지), 128k 토큰 컨텍스트, 한국어 처리 지원
+속도는 상대적으로 느릴 수 있으나,
+32GB CPU 메모리를 최적 활용하여 자원 효율성과 안정성을 극대화합니다.
 
-목표
+참고:
+비교용 NVIDIA 4070 GPU(12GB 메모리)보다 훨씬 큰 32GB 시스템 메모리를 활용합니다.
 
-CPU 메모리 자원을 효율적으로 관리하여 gemma-3-4b-it 모델을 안정적으로 실행.
-32GB CPU 메모리를 활용해 메모리 최적화 기법(예: bfloat16, torch.no_grad) 적용.
-한국어 텍스트 생성 등 작업에서 높은 성능 달성.
+2. 모델 정보
 
-환경 설정
+항목	설명
+모델명	google/gemma-3-4b-it
+모델 특징	- 4B 파라미터
+- 멀티모달(텍스트 + 이미지)
+- 최대 128k 토큰 컨텍스트 지원
+- 한국어 자연어 처리 가능
+메모리 요구사항	약 20GB RAM 필요 (FP16 또는 bfloat16 설정 시)
 
-라이브러리:
-transformers (4.50.0 이상)
-torch (CPU 지원 버전)
+3. 프로젝트 목표
+CPU 환경에서 Gemma-3-4B-IT 모델을 안정적으로 실행합니다.
 
+32GB 시스템 메모리를 활용하여, 메모리 최적화 기술을 적용합니다:
 
-설치 명령어:pip install --upgrade transformers torch
+bfloat16 데이터 타입 사용
 
+torch.no_grad()로 추론 시 메모리 절약
 
-Hugging Face 인증:
-모델 접근을 위해 Hugging Face 토큰 설정 및 약관 동의 필요.
-토큰 설정 예시:export HF_TOKEN="your_token_here"
+한국어 텍스트 생성 등 자연어 작업에서 실질적 높은 품질을 목표로 합니다.
 
+4. 실행 결과 예시
+아래는 CPU에서 Gemma-3-4B-IT 모델을 구동하여 "이순신 장군이 누구야"를 질문한 결과 화면입니다:
 
-
-
-
-실행 예시
-아래는 CPU에서 gemma-3-4b-it 모델을 실행하는 샘플 코드입니다:
-import torch
-from transformers import AutoProcessor, Gemma3ForConditionalGeneration
-import os
-
-# Hugging Face 토큰 설정
-os.environ['HF_TOKEN'] = "your_token_here"
+<a href='https://ifh.cc/v-FdJaQC' target='_blank'><img src='https://ifh.cc/g/FdJaQC.jpg' border='0'></a>
 
 
-# 입력 텍스트
-input_text = "너에 대해서 설명해 줄래?"
-messages = [
-    {"role": "user", "content": [{"type": "text", "text": input_text}]}
-]
 
-# 채팅 템플릿 적용
-inputs = processor.apply_chat_template(messages, return_tensors="pt").to("cpu")
+모델은 이순신 장군의 생애, 업적, 리더십을 체계적으로 설명해 주었습니다.
 
-# 출력 생성
-with torch.no_grad():
-    outputs = model.generate(**inputs, max_new_tokens=512)
-print(processor.decode(outputs[0], skip_special_tokens=True))
+한국어로 자연스럽고 구체적인 답변을 생성하는 것을 확인할 수 있습니다.
 
-메모리 최적화
+복잡한 긴 답변도 CPU 기반 메모리 최적화 설정으로 충분히 처리되었습니다.
 
-bfloat16: 메모리 사용량을 줄여 32GB 내에서 모델 실행.
-torch.no_grad(): 추론 시 메모리 효율성 향상.
-CPU 전용 설정: device_map="cpu"로 GPU 의존성 제거.
 
-참고
+5. 주의사항
+속도는 GPU 대비 느릴 수 있으며, 실시간 응답이 필요한 서비스용에는 적합하지 않을 수 있습니다.
 
-모델 문서: Hugging Face Gemma 3
-Transformers 가이드: Hugging Face Transformers
-메모리 요구사항: FP16/bfloat16에서 약 20GB RAM 필요, 32GB CPU 메모리로 충분.
+메모리 요구사항을 초과하지 않도록 입력 토큰 길이, 출력 토큰 수를 적절히 조정해야 합니다.
 
+🚀 최종 정리
+GPU 없이 CPU로 4B 모델 실행
+
+32GB RAM으로 충분히 안정적 구동 가능
+
+한국어 생성 및 텍스트 작업 지원
+
+답변은 느릴 수 있으나 최상의 답변 품질
 
