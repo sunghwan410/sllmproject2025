@@ -1,5 +1,23 @@
 # 📦sllmproject2025
 🚀 CPU 기반 Gemma-3-4B-IT 모델 실행 프로젝트
+
+
+<div align="center">
+  <br>
+</div>
+<div align=center>
+  <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi">
+  <br>
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+  <br>
+  <img src="https://img.shields.io/badge/pytorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white">
+  <img src="https://img.shields.io/badge/transformers-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black">
+  <br><br>
+</div>
+
 ---
 ## 1. 프로젝트 개요
 본 프로젝트는 GPU 없이 CPU만 활용하여,
